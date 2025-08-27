@@ -12,13 +12,24 @@ const port = 3000;
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/index.html');
 });
 
+const people = {};
+
 io.on('connection', (socket) => {
-    console.log('a user has connected');
+  console.log('a user has connected');
+  people[socket.id] = {
+    name: `Test ${socket.id}`,
+  }
+  
+  io.emit('updatePeople', people); // Emit to everyone
+  // socket.emit('updatePeople', people); // Emit to only the person who just connected
+  
+  
+  console.log(people);
 });
 
 server.listen(port, () => {
-    console.log(`Example app running on port : ${port}`);
+  console.log(`Example app running on port : ${port}`);
 });
