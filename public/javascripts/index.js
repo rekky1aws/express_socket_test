@@ -2,11 +2,13 @@
 const socket = io();
 
 // Elts
+const mainElt = document.querySelector('main');
 const peopleList = document.querySelector('#people-list');
 const usernameElt = document.querySelector('#username');
 const usernameBtn = document.querySelector('#username-btn');
 const connElt = document.querySelector('#connexion');
-const mainElt = document.querySelector('main'); 
+const messageElt = document.querySelector('#message-text');
+const sendMsgBtn = document.querySelector('#send-btn');
 
 // VARIABLES
 let username;
@@ -61,8 +63,25 @@ function connect ()
   }
 }
 
+function clrMsgTxt () {
+  messageElt.value = "";
+}
+
+function sendMessage ()
+{
+  const message = {
+    user: username,
+    content: messageElt.value,
+    datetime: new Date(),
+  };
+
+  clrMsgTxt();
+  socket.emit('newMessage', message);
+}
+
 // EVENT LISTENERS
 usernameBtn.addEventListener('click', connect);
+sendMsgBtn.addEventListener('click', sendMessage);
 
 // MAIN
 socket.on('updateUsers', (users) => {
@@ -70,6 +89,6 @@ socket.on('updateUsers', (users) => {
   peopleList.innerHTML = "";
   
   for (const id in users) {
-    createPersonInList(users[id].name)
+    createPersonInList(users[id].name);
   }
 });

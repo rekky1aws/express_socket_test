@@ -16,23 +16,31 @@ app.get('/', (req, res) => {
 });
 
 const users = {};
+const messages = [];
 
 io.on('connection', (socket) => {
   console.log('a user has connected');
 
-  // Listening to event emitted by client
+  // Sending users
+  io.emit('updateUsers', users); // Emit to everyone
+  // socket.emit('updatePeople', people); // Emit to only the person who just connected
+
+  // Listening to events emitted by clients
   socket.on('newUser', (username) => {
     users[socket.id] = {
       name: username,
     }
-    console.log(users);
 
     io.emit('updateUsers', users);
   });
   
-  io.emit('updateUsers', users); // Emit to everyone
-  // socket.emit('updatePeople', people); // Emit to only the person who just connected
-    
+  socket.on('newMessage', (message) => {
+    messages.push(message);
+
+    console.log(messages);
+
+    io.emit('updateMessages', messages);
+  });
 });
 
 server.listen(port, () => {
