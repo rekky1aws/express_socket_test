@@ -1,0 +1,32 @@
+body {
+  background-color: #1D1D1D;
+  color: #FFFFFF;
+}
+
+#people-list {
+  display: flex;
+  flex-direction: column;
+}
+
+#message {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#message-text {
+  background-color: #2C2C2C;
+  color: #FFFFFF;
+
+  resize: none;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+}
+
+#send-button {
+  background-color: slateblue;
+  border: none;
+  color: #FFFFFF;
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 0.5rem;
+}

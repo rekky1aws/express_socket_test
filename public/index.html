@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+	<link rel="stylesheet" href="/styles/index.css">
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/javascripts/index.js" defer></script>
 </head>
@@ -12,7 +13,18 @@
 		<h1>Test Chat</h1>
 	</header>
 	<main>
-		<div id="people-list"></div>
+		<section id="infos">
+			<h2>People online</h2>
+			<div id="people-list"></div>
+		</section>
+		<section id="history">
+			<h2>Chat history</h2>
+			<div id="messages-list"></div>
+		</section>
+		<section id="message">
+			<textarea name="message-text" id="message-text"></textarea>
+			<button id="send-button">&rarr;</button>
+		</section>
 	</main>
 </body>
 </html>
