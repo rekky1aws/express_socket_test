@@ -23,7 +23,7 @@ io.on('connection', (socket) => {
 
   // Sending users
   io.emit('updateUsers', users); // Emit to everyone
-  // socket.emit('updatePeople', people); // Emit to only the person who just connected
+  // socket.emit('updatePeople', users); // Emit to only the person who just connected
 
   // Listening to events emitted by clients
   socket.on('newUser', (username) => {

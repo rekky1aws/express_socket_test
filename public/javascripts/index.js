@@ -9,10 +9,12 @@ const usernameBtn = document.querySelector('#username-btn');
 const connElt = document.querySelector('#connexion');
 const messageElt = document.querySelector('#message-text');
 const sendMsgBtn = document.querySelector('#send-btn');
+const msgHistory = document.querySelector('#history');
 
 // VARIABLES
 let username;
-let localUsers = {};
+let lclUsers = {};
+let lclMessages = [];
 
 // FUNCTIONS
 function chgState ()
@@ -25,8 +27,8 @@ function checkUsername (username)
 {
   const regex = /^[0-9A-Za-z]{6,16}$/;
 
-  for (const id in localUsers) {
-    if (localUsers[id].name == username) {
+  for (const id in lclUsers) {
+    if (lclUsers[id].name == username) {
       throw new Error(`An user already have this username (${username})`);
     }
   }
@@ -69,6 +71,10 @@ function clrMsgTxt () {
 
 function sendMessage ()
 {
+  if (!messageElt.value.length) {
+    throw new Error("Useless to send an empty message.");
+  }
+
   const message = {
     user: username,
     content: messageElt.value,
@@ -79,16 +85,48 @@ function sendMessage ()
   socket.emit('newMessage', message);
 }
 
+function displayMessage (message) {
+  const messageElt = document.createElement('div');
+  const msgContentElt = document.createElement('div');
+  const msgDateElt = document.createElement('div');
+  const msgSenderElt = document.createElement('div');
+
+  messageElt.classList.add('message');
+  msgContentElt.classList.add('msg-content');
+  msgDateElt.classList.add('msg-date');
+  msgSenderElt.classList.add('msg-sender');
+
+  if (message.user === username) {
+    messageElt.classList.add('from-self');
+  }
+
+  msgContentElt.textContent = message.content;
+  msgSenderElt.textContent = message.user;
+  msgDateElt.textContent = new Date(message.datetime).toLocaleString("fr-FR");
+  
+  messageElt.append(msgDateElt, msgContentElt, msgSenderElt);
+  msgHistory.append(messageElt);
+}
+
 // EVENT LISTENERS
 usernameBtn.addEventListener('click', connect);
 sendMsgBtn.addEventListener('click', sendMessage);
 
 // MAIN
 socket.on('updateUsers', (users) => {
-  localUsers = users;
+  lclUsers = users;
   peopleList.innerHTML = "";
   
   for (const id in users) {
     createPersonInList(users[id].name);
   }
+});
+
+socket.on('updateMessages', (messages) => {
+  messages.forEach(message => {
+    if (!lclMessages.includes(message)) {
+      displayMessage(message);
+      lclMessages.push(message);
+    }
+  });
 });
