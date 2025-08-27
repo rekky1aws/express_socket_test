@@ -10,7 +10,7 @@ const mainElt = document.querySelector('main');
 
 // VARIABLES
 let username;
-let localUsers;
+let localUsers = {};
 
 // FUNCTIONS
 function chgState ()
@@ -22,6 +22,12 @@ function chgState ()
 function checkUsername (username)
 {
   const regex = /^[0-9A-Za-z]{6,16}$/;
+
+  for (const id in localUsers) {
+    if (localUsers[id].name == username) {
+      throw new Error(`An user already have this username (${username})`);
+    }
+  }
   
   if (!username.match(regex)) {
     if (username.length < 6 || username.length > 16) {
