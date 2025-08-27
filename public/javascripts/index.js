@@ -1,4 +1,5 @@
 // CONSTANTS
+const socket = io();
 
 // Elts
 const peopleList = document.querySelector('#people-list');
@@ -8,7 +9,6 @@ const connElt = document.querySelector('#connexion');
 const mainElt = document.querySelector('main'); 
 
 // VARIABLES
-let socket;
 let username;
 
 // FUNCTIONS
@@ -33,19 +33,11 @@ function checkUsername (username)
   return true;
 }
 
-function socketListenOn ()
-{
-  // Update online people list
-  socket.on('updatePeople', (people) => {
-    peopleList.innerHTML = "";
-    
-    for (const id in people) {
-      const personElt = document.createElement('div');
-      personElt.classList.add('person');
-      personElt.textContent = people[id].name;
-      peopleList.append(personElt);
-    }
-  });
+function createPersonInList (name) {
+  const personElt = document.createElement('div');
+  personElt.classList.add('person');
+  personElt.textContent = name;
+  peopleList.append(personElt);
 }
 
 function connect ()
@@ -55,10 +47,7 @@ function connect ()
     
     username = usernameElt.value;
     chgState();
-    
-    socket = io();
-    
-    socketListenOn();
+  
     socket.emit("newPerson", username);
   } catch (e) {
     console.warn(e);
@@ -69,3 +58,11 @@ function connect ()
 usernameBtn.addEventListener('click', connect);
 
 // MAIN
+socket.on('updatePeople', (people) => {
+  console.log(people);
+  peopleList.innerHTML = "";
+  
+  for (const id in people) {
+    createPersonInList(people[id].name)
+  }
+});
