@@ -1,18 +1,71 @@
-// Socket
-const socket = io();
-console.log(socket);
+// CONSTANTS
 
+// Elts
 const peopleList = document.querySelector('#people-list');
+const usernameElt = document.querySelector('#username');
+const usernameBtn = document.querySelector('#username-btn');
+const connElt = document.querySelector('#connexion');
+const mainElt = document.querySelector('main'); 
 
-socket.on('updatePeople', (people) => {
-  peopleList.innerHTML = "";
+// VARIABLES
+let socket;
+let username;
 
-  for (const id in people) {
-    const personElt = document.createElement('div');
-    personElt.classList.add('person');
-    personElt.textContent = people[id].name;
-    peopleList.append(personElt);
+// FUNCTIONS
+function chgState ()
+{
+  mainElt.classList.remove('hidden');
+  connElt.classList.add('hidden');
+}
+
+function checkUsername (username)
+{
+  const regex = /^[0-9A-Za-z]{6,16}$/;
+  
+  if (!username.match(regex)) {
+    if (username.length < 6 || username.length > 16) {
+      throw new Error("Username must be beetween 6 and 16 characters long.");
+    } else {
+      throw new Error("Username must follow this pattern : /^[0-9A-Za-z]{6,16}$/");
+    }
   }
   
-  console.log(people);
-});
+  return true;
+}
+
+function socketListenOn ()
+{
+  // Update online people list
+  socket.on('updatePeople', (people) => {
+    peopleList.innerHTML = "";
+    
+    for (const id in people) {
+      const personElt = document.createElement('div');
+      personElt.classList.add('person');
+      personElt.textContent = people[id].name;
+      peopleList.append(personElt);
+    }
+  });
+}
+
+function connect ()
+{
+  try {
+    checkUsername(usernameElt.value);
+    
+    username = usernameElt.value;
+    chgState();
+    
+    socket = io();
+    
+    socketListenOn();
+    socket.emit("newPerson", username);
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+// EVENT LISTENERS
+usernameBtn.addEventListener('click', connect);
+
+// MAIN

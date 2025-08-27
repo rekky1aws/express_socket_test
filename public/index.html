@@ -12,7 +12,11 @@
 	<header>
 		<h1>Test Chat</h1>
 	</header>
-	<main>
+	<div id="connexion">
+		<input type="text" name="username" id="username" placeholder="Name">
+		<button id="username-btn">Enter</button>
+	</div>
+	<main class="hidden">
 		<section id="infos">
 			<h2>People online</h2>
 			<div id="people-list"></div>
@@ -23,7 +27,7 @@
 		</section>
 		<section id="message">
 			<textarea name="message-text" id="message-text"></textarea>
-			<button id="send-button">&rarr;</button>
+			<button id="send-btn">&rarr;</button>
 		</section>
 	</main>
 </body>

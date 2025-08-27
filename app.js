@@ -19,15 +19,20 @@ const people = {};
 
 io.on('connection', (socket) => {
   console.log('a user has connected');
-  people[socket.id] = {
-    name: `Test ${socket.id}`,
-  }
+
+  // Listening to event emitted by client
+  socket.on('newPerson', (username) => {
+    people[socket.id] = {
+      name: username,
+    }
+    console.log(people);
+
+    io.emit('updatePeople', people);
+  });
   
   io.emit('updatePeople', people); // Emit to everyone
   // socket.emit('updatePeople', people); // Emit to only the person who just connected
-  
-  
-  console.log(people);
+    
 });
 
 server.listen(port, () => {
