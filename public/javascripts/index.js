@@ -10,6 +10,7 @@ const mainElt = document.querySelector('main');
 
 // VARIABLES
 let username;
+let localUsers;
 
 // FUNCTIONS
 function chgState ()
@@ -48,7 +49,7 @@ function connect ()
     username = usernameElt.value;
     chgState();
   
-    socket.emit("newPerson", username);
+    socket.emit("newUser", username);
   } catch (e) {
     console.warn(e);
   }
@@ -58,11 +59,11 @@ function connect ()
 usernameBtn.addEventListener('click', connect);
 
 // MAIN
-socket.on('updatePeople', (people) => {
-  console.log(people);
+socket.on('updateUsers', (users) => {
+  localUsers = users;
   peopleList.innerHTML = "";
   
-  for (const id in people) {
-    createPersonInList(people[id].name)
+  for (const id in users) {
+    createPersonInList(users[id].name)
   }
 });

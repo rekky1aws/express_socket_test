@@ -15,22 +15,22 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-const people = {};
+const users = {};
 
 io.on('connection', (socket) => {
   console.log('a user has connected');
 
   // Listening to event emitted by client
-  socket.on('newPerson', (username) => {
-    people[socket.id] = {
+  socket.on('newUser', (username) => {
+    users[socket.id] = {
       name: username,
     }
-    console.log(people);
+    console.log(users);
 
-    io.emit('updatePeople', people);
+    io.emit('updateUsers', users);
   });
   
-  io.emit('updatePeople', people); // Emit to everyone
+  io.emit('updateUsers', users); // Emit to everyone
   // socket.emit('updatePeople', people); // Emit to only the person who just connected
     
 });
