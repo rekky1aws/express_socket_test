@@ -86,6 +86,8 @@ function sendMessage ()
 }
 
 function displayMessage (message) {
+  console.log(message);
+
   const messageElt = document.createElement('div');
   const msgContentElt = document.createElement('div');
   const msgDateElt = document.createElement('div');
@@ -123,10 +125,12 @@ socket.on('updateUsers', (users) => {
 });
 
 socket.on('updateMessages', (messages) => {
-  messages.forEach(message => {
-    if (!lclMessages.includes(message)) {
-      displayMessage(message);
-      lclMessages.push(message);
-    }
-  });
+  if(messages.length === lclMessages.length) {
+    return false;
+  }
+  for (let i=lclMessages.length; i<messages.length; i++) {
+    console.log(messages[i]);
+    displayMessage(messages[i]);
+  }
+  lclMessages = messages;
 });
