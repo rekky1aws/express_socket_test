@@ -3,7 +3,6 @@
  + Send zone
   + Better style
  + Messages
-  + Display only new messages
   + Better style
  + User list
   + Emphasis on current user name
