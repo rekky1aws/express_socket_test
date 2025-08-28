@@ -22,8 +22,9 @@ io.on('connection', (socket) => {
   console.log('a user has connected');
 
   // Sending users
-  io.emit('updateUsers', users); // Emit to everyone
-  // socket.emit('updatePeople', users); // Emit to only the person who just connected
+  socket.emit('updateMessages', messages);
+  // io.emit('updateUsers', users); // Emit to everyone
+  socket.emit('updatePeople', users); // Emit to only the person who just connected
 
   // Listening to events emitted by clients
   socket.on('newUser', (username) => {
