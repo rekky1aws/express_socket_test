@@ -9,3 +9,6 @@
   + Keep users in list but grey out those who are disconnected 
 
 ## Back
+ + Handle disconnection
+  + Timeout
+  + Classic disconnection
