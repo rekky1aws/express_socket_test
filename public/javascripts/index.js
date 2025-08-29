@@ -47,6 +47,9 @@ function checkUsername (username)
 function createPersonInList (name) {
   const personElt = document.createElement('div');
   personElt.classList.add('person');
+  if (name === username) {
+    personElt.classList.add('self');
+  }
   personElt.textContent = name;
   peopleList.append(personElt);
 }
