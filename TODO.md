@@ -1,12 +1,17 @@
 # TO DO
 ## Front
- + Send zone
-  + Better style
- + Messages
-  + Better style
- + User list
-  + Emphasis on current user name
-  + Keep users in list but grey out those who are disconnected 
+ + UI
+  + Global Layout 
+  + Send Zone
+  + Messages History
+  + People List
+    + Keep people even when disconnecting
+    + Grey out people who are not connected anymore
+      + Compare lclUsers VS users from socket
+
+ + UX
+  + Play a sound when recieving a new message
+    + Check if message is from a different user
 
 ## Back
  + Handle disconnection
