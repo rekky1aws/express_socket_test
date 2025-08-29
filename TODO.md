@@ -12,6 +12,7 @@
  + UX
   + Play a sound when recieving a new message
     + Check if message is from a different user
+    + Fix connection double
 
 ## Back
  + Handle disconnection
