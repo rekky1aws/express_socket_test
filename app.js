@@ -3,6 +3,7 @@ const app = express();
 
 // Socket.io setup
 const http = require('http');
+const { platform } = require('os');
 const server = http.createServer(app);
 const { Server } = require('socket.io');
 const io = new Server(server);
@@ -31,6 +32,14 @@ io.on('connection', (socket) => {
     users[socket.id] = {
       name: username,
     }
+
+    io.emit('updateUsers', users);
+  });
+
+  socket.on('disconnect', (reason) => {
+    console.log(`An user has disconnected (${players[socket.id].name})`)
+    console.log(reason);
+    delete users[socket.id];
 
     io.emit('updateUsers', users);
   });
