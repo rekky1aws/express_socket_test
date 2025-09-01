@@ -19,4 +19,12 @@
 ## Back
  + Handle disconnection
   + Timeout
-  + Classic disconnection
+    + Move user to the disconnectedUsers list
+  + Transport Close
+    + Move user to the disconnectedUsers list
+  + Disconnection button
+    + Prompt confirmation before doing anything
+    + Just delete user from users
+ + Handle reconnection
+  + On connection, ask new user if their name is in the disconnectedUsers list.
+    + Move user form disconnectedUsers to users if they reconnect
