@@ -119,10 +119,11 @@ sendMsgBtn.addEventListener('click', sendMessage);
 
 // MAIN
 socket.on('updateUsers', (users) => {
+  // TODO : keep disconnected users but grey them out 
   lclUsers = users;
   peopleList.innerHTML = "";
   
-  for (const id in users) {
+  for (const id in lclUsers) {
     createPersonInList(users[id].name);
   }
 });
