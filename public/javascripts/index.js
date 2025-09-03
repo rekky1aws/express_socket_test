@@ -44,7 +44,7 @@ function checkUsername (username)
   return true;
 }
 
-function createPersonInList (name) {
+function newOnlineUser (name) {
   const personElt = document.createElement('div');
   personElt.classList.add('person');
   if (name === username) {
@@ -123,8 +123,8 @@ socket.on('updateUsers', (users) => {
   lclUsers = users;
   peopleList.innerHTML = "";
   
-  for (const id in lclUsers) {
-    createPersonInList(users[id].name);
+  for (const id in lclUsers.online) {
+    newOnlineUser(lclUsers.online[id].name);
   }
 });
 
