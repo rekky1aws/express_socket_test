@@ -122,7 +122,6 @@ sendMsgBtn.addEventListener('click', sendMessage);
 
 // MAIN
 socket.on('updateUsers', (users) => {
-  // TODO : keep disconnected users but grey them out 
   lclUsers = users;
   onlineList.innerHTML = "";
   offlineList.innerHTML = "";
