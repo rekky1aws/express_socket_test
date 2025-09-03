@@ -74,3 +74,11 @@ body {
   display: flex;
   justify-content: space-evenly;
 }
+
+#offline-list li {
+  color: #777777;
+}
+
+#offline li:hover {
+  color: #FFFFFF;
+}
