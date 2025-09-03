@@ -10,6 +10,7 @@ body {
 .people-list {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .people-list .self {
@@ -67,4 +68,9 @@ body {
 
 .from-self .msg-content {
   background-color: slateblue;
+}
+
+#infos {
+  display: flex;
+  justify-content: space-evenly;
 }

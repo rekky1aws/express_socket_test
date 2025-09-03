@@ -50,7 +50,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', (reason) => {
     // console.log(`An user has disconnected (${users.online[socket.id].name}) for this reason : ${reason}`); // DEBUG
     
-    users.offline[socket.id] = users.online;
+    users.offline[socket.id] = users.online[socket.id];
     delete users.online[socket.id];
     
     io.emit('updateUsers', users);

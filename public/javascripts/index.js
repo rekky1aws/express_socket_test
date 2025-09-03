@@ -45,14 +45,16 @@ function checkUsername (username)
   return true;
 }
 
-function newOnlineUser (name) {
-  const personElt = document.createElement('div');
+function displayUser (name, list) {
+  console.log(list);
+
+  const personElt = document.createElement('li');
   personElt.classList.add('person');
   if (name === username) {
     personElt.classList.add('self');
   }
   personElt.textContent = name;
-  onlineList.append(personElt);
+  list.append(personElt);
 }
 
 function connect ()
@@ -123,9 +125,14 @@ socket.on('updateUsers', (users) => {
   // TODO : keep disconnected users but grey them out 
   lclUsers = users;
   onlineList.innerHTML = "";
+  offlineList.innerHTML = "";
   
   for (const id in lclUsers.online) {
-    newOnlineUser(lclUsers.online[id].name);
+    displayUser(lclUsers.online[id].name, onlineList);
+  }
+
+  for (const id in lclUsers.offline) {
+    displayUser(lclUsers.offline[id].name, offlineList);
   }
 });
 
@@ -134,7 +141,7 @@ socket.on('updateMessages', (messages) => {
     return false;
   }
   for (let i=lclMessages.length; i<messages.length; i++) {
-    console.log(messages[i]);
+    console.log(messages[i]); // DEBUG
     displayMessage(messages[i]);
   }
   lclMessages = messages;
