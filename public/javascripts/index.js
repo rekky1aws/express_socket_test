@@ -3,7 +3,8 @@ const socket = io();
 
 // Elts
 const mainElt = document.querySelector('main');
-const peopleList = document.querySelector('#people-list');
+const onlineList = document.querySelector('#online-list');
+const offlineList = document.querySelector('#offline-list');
 const usernameElt = document.querySelector('#username');
 const usernameBtn = document.querySelector('#username-btn');
 const connElt = document.querySelector('#connexion');
@@ -51,7 +52,7 @@ function newOnlineUser (name) {
     personElt.classList.add('self');
   }
   personElt.textContent = name;
-  peopleList.append(personElt);
+  onlineList.append(personElt);
 }
 
 function connect ()
@@ -121,7 +122,7 @@ sendMsgBtn.addEventListener('click', sendMessage);
 socket.on('updateUsers', (users) => {
   // TODO : keep disconnected users but grey them out 
   lclUsers = users;
-  peopleList.innerHTML = "";
+  onlineList.innerHTML = "";
   
   for (const id in lclUsers.online) {
     newOnlineUser(lclUsers.online[id].name);

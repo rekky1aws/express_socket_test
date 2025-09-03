@@ -7,12 +7,12 @@ body {
   display: none;
 }
 
-#people-list {
+.people-list {
   display: flex;
   flex-direction: column;
 }
 
-#people-list .self {
+.people-list .self {
   text-decoration: underline;
 }
 
