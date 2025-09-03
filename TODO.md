@@ -1,13 +1,13 @@
 # TO DO
 ## Front
  + UI
-  + Global Layout 
-  + Send Zone
-  + Messages History
-  + People List
-    + Keep people even when disconnecting
-    + Grey out people who are not connected anymore
-      + Compare lclUsers VS users from socket
+  + Connection
+    + Name input and button (ok)
+    + Display offlineUsers and if user clicks on of the name, it copie it in the name input
+  + Global Layout
+    + Chat history in center, overflow on top, scroll at the lowest
+    + Send Zone at the bottom of the chat history
+    + People List appears on the right upon pressing a button
 
  + UX
   + Play a sound when recieving a new message
@@ -28,3 +28,4 @@
  + Handle reconnection
   + On connection, ask new user if their name is in the disconnectedUsers list.
     + Move user form disconnectedUsers to users if they reconnect
+ + Sort users by name (doable in front depending on what we have to optimize).
