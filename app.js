@@ -48,7 +48,7 @@ io.on('connection', (socket) => {
   });
   
   socket.on('disconnect', (reason) => {
-    console.log(`An user has disconnected (${users.online[socket.id].name}) for this reason : ${reason}`);
+    // console.log(`An user has disconnected (${users.online[socket.id].name}) for this reason : ${reason}`); // DEBUG
     
     users.offline[socket.id] = users.online;
     delete users.online[socket.id];
@@ -59,12 +59,12 @@ io.on('connection', (socket) => {
   socket.on('newMessage', (message) => {
     messages.push(message);
     
-    console.log(messages);
+    console.log(messages); // DBEUG
     
     io.emit('updateMessages', messages);
   });
 });
 
 server.listen(port, () => {
-  console.log(`Example app running on port : ${port}`);
+  console.log(`Example app running on port : ${port}`); // DEBUG
 });
