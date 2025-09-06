@@ -46,7 +46,7 @@ function checkUsername (username)
 }
 
 function displayUser (name, list) {
-  console.log(list);
+  // console.log(list); // DEBUG
 
   const personElt = document.createElement('li');
   personElt.classList.add('person');
@@ -92,7 +92,7 @@ function sendMessage ()
 }
 
 function displayMessage (message) {
-  console.log(message);
+  // console.log(message); // DEBUG
 
   const messageElt = document.createElement('div');
   const msgContentElt = document.createElement('div');
@@ -140,7 +140,7 @@ socket.on('updateMessages', (messages) => {
     return false;
   }
   for (let i=lclMessages.length; i<messages.length; i++) {
-    console.log(messages[i]); // DEBUG
+    // console.log(messages[i]); // DEBUG
     displayMessage(messages[i]);
   }
   lclMessages = messages;
