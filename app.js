@@ -33,9 +33,11 @@ io.on('connection', (socket) => {
   // Listening to events emitted by clients
   socket.on('newUser', (username) => {
     // Deleting user from offline list if present
-    for (const [userId, userData] of Object.entries(users.offline)) {
-      if (userData.name === username) {
-        delete users.offline[userId];
+    if (users.offline) {
+      for (const [userId, userData] of Object.entries(users.offline)) {
+        if (userData.name === username) {
+          delete users.offline[userId];
+        }
       }
     }
     
