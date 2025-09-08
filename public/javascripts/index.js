@@ -11,6 +11,8 @@ const connElt = document.querySelector('#connexion');
 const messageElt = document.querySelector('#message-text');
 const sendMsgBtn = document.querySelector('#send-btn');
 const msgHistory = document.querySelector('#history');
+const onlineCount = document.querySelector('#online-count');
+const offlineCount = document.querySelector('#offline-count');
 
 // VARIABLES
 let username;
@@ -133,6 +135,11 @@ socket.on('updateUsers', (users) => {
   for (const id in lclUsers.offline) {
     displayUser(lclUsers.offline[id].name, offlineList);
   }
+
+  console.log(onlineList);
+
+  onlineCount.textContent = Object.entries(lclUsers.online).length;
+  offlineCount.textContent = Object.entries(lclUsers.offline).length;
 });
 
 socket.on('updateMessages', (messages) => {
