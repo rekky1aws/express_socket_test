@@ -3,7 +3,6 @@ const app = express();
 
 // Socket.io setup
 const http = require('http');
-const { platform } = require('os');
 const server = http.createServer(app);
 const { Server } = require('socket.io');
 const io = new Server(server);
