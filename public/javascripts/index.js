@@ -53,9 +53,11 @@ function displayUser (name, list) {
 
   const personElt = document.createElement('li');
   personElt.classList.add('person');
+
   if (name === username) {
     personElt.classList.add('self');
   }
+
   if (list === recoList) {
     personElt.addEventListener('click', (evt) => {
       usernameElt.value = evt.target.textContent;
@@ -131,24 +133,32 @@ sendMsgBtn.addEventListener('click', sendMessage);
 
 // MAIN
 socket.on('updateUsers', (users) => {
+  console.group('updateUsers');
+
   lclUsers = users;
   onlineList.innerHTML = "";
   offlineList.innerHTML = "";
   recoList.innerHTML = "";
   
+  console.log(lclUsers); // DEBUG
+
   for (const id in lclUsers.online) {
     displayUser(lclUsers.online[id].name, onlineList);
-    displayUser(lclUsers.online[id].name, recoList);
   }
 
   for (const id in lclUsers.offline) {
-    displayUser(lclUsers.offline[id].name, offlineList);
+    if (lclUsers.offline[id].name) {  
+      displayUser(lclUsers.offline[id].name, recoList);
+      displayUser(lclUsers.offline[id].name, offlineList);
+    }
   }
 
-  console.log(onlineList);
+  // console.log(onlineList); // DEBUG
 
   onlineCount.textContent = Object.entries(lclUsers.online).length;
   offlineCount.textContent = Object.entries(lclUsers.offline).length;
+
+  console.groupEnd('updateUsers');
 });
 
 socket.on('updateMessages', (messages) => {
