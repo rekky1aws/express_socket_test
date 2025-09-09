@@ -82,3 +82,7 @@ body {
 #offline li:hover {
   color: #FFFFFF;
 }
+
+#reco-container:has(#reco-list:empty)  {
+  display: none;
+}

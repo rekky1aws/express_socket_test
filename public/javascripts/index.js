@@ -13,6 +13,7 @@ const sendMsgBtn = document.querySelector('#send-btn');
 const msgHistory = document.querySelector('#history');
 const onlineCount = document.querySelector('#online-count');
 const offlineCount = document.querySelector('#offline-count');
+const recoList = document.querySelector('#reco-list');
 
 // VARIABLES
 let username;
@@ -54,6 +55,12 @@ function displayUser (name, list) {
   personElt.classList.add('person');
   if (name === username) {
     personElt.classList.add('self');
+  }
+  if (list === recoList) {
+    personElt.addEventListener('click', (evt) => {
+      usernameElt.value = evt.target.textContent;
+      connect();
+    });
   }
   personElt.textContent = name;
   list.append(personElt);
@@ -127,9 +134,11 @@ socket.on('updateUsers', (users) => {
   lclUsers = users;
   onlineList.innerHTML = "";
   offlineList.innerHTML = "";
+  recoList.innerHTML = "";
   
   for (const id in lclUsers.online) {
     displayUser(lclUsers.online[id].name, onlineList);
+    displayUser(lclUsers.online[id].name, recoList);
   }
 
   for (const id in lclUsers.offline) {
