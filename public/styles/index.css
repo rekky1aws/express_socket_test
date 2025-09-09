@@ -86,3 +86,7 @@ body {
 #reco-container:has(#reco-list:empty)  {
   display: none;
 }
+
+#reco-list li, button {
+  cursor:pointer
+}
