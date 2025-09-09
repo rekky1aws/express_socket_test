@@ -26,14 +26,14 @@ io.on('connection', (socket) => {
   
   // Sending users
   socket.emit('updateMessages', messages);
-  socket.emit('updatePeople', users); // Emit to only the person who just connected
+  socket.emit('updateUsers', users); // Emit to only the person who just connected
   // io.emit('updateUsers', users); // Emit to everyone
   
   // Listening to events emitted by clients
   socket.on('newUser', (username) => {
     // Deleting user from offline list if present
-    if (users.offline) {
-      for (const [userId, userData] of Object.entries(users.offline)) {
+    for (const [userId, userData] of Object.entries(users.offline)) {
+      if (userData) {
         if (userData.name === username) {
           delete users.offline[userId];
         }
