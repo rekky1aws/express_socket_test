@@ -13,13 +13,25 @@
 		<h1>Test Chat</h1>
 	</header>
 	<div id="connexion">
-		<input type="text" name="username" id="username" placeholder="Name">
-		<button id="username-btn">Enter</button>
+		<div>
+			<input type="text" name="username" id="username" placeholder="Name">
+			<button id="username-btn">Enter</button>
+		</div>
+		<div id="reco-container">
+			<div>Or you were already connected with one of these names</div>
+			<ul id="reco-list"></ul>
+		</div>
 	</div>
 	<main class="hidden">
 		<section id="infos">
-			<h2>People online</h2>
-			<div id="people-list"></div>
+			<div id="online">
+				<h2>People online (<span id="online-count"></span>)</h2>
+				<ul id="online-list" class="people-list"></ul>
+			</div>
+			<div id="offline">
+				<h2>People offline (<span id="offline-count"></span>)</h2>
+				<ul id="offline-list" class="people-list"></ul>
+			</div>
 		</section>
 		<section id="history">
 			<h2>Chat history</h2>

@@ -1,20 +1,31 @@
 # TO DO
 ## Front
  + UI
-  + Global Layout 
-  + Send Zone
-  + Messages History
-  + People List
-    + Keep people even when disconnecting
-    + Grey out people who are not connected anymore
-      + Compare lclUsers VS users from socket
+  + Connection
+    + Name input and button (ok)
+    + Display offlineUsers and if user clicks on of the name, it copie it in the name input
+  + Global Layout
+    + Chat history in center, overflow on top, scroll at the lowest
+    + Send Zone at the bottom of the chat history
+    + People List appears on the right upon pressing a button
 
  + UX
   + Play a sound when recieving a new message
     + Check if message is from a different user
-    + Fix connection double
+  + Keyboard control for sending messages
+    + Enter should not add a new line but send the message instead
+    + Shift + Enter should add a new line
 
 ## Back
  + Handle disconnection
   + Timeout
-  + Classic disconnection
+    + Move user to the disconnectedUsers list
+  + Transport Close
+    + Move user to the disconnectedUsers list
+  + Disconnection button
+    + Prompt confirmation before doing anything
+    + Just delete user from users
+ + Handle reconnection
+  + On connection, ask new user if their name is in the disconnectedUsers list.
+    + Move user form disconnectedUsers to users if they reconnect
+ + Sort users by name (doable in front depending on what we have to optimize).

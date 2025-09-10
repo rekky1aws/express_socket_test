@@ -7,12 +7,13 @@ body {
   display: none;
 }
 
-#people-list {
+.people-list {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
-#people-list .self {
+.people-list .self {
   text-decoration: underline;
 }
 
@@ -57,10 +58,35 @@ body {
   font-size: 1.5rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  max-width: 30%;
+  max-width: 30vh;
 }
 
 .from-self {
   align-self: flex-end;
   align-items: flex-end;
+}
+
+.from-self .msg-content {
+  background-color: slateblue;
+}
+
+#infos {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#offline-list li {
+  color: #777777;
+}
+
+#offline li:hover {
+  color: #FFFFFF;
+}
+
+#reco-container:has(#reco-list:empty)  {
+  display: none;
+}
+
+#reco-list li, button {
+  cursor:pointer
 }

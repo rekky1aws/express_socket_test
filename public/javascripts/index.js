@@ -3,13 +3,17 @@ const socket = io();
 
 // Elts
 const mainElt = document.querySelector('main');
-const peopleList = document.querySelector('#people-list');
+const onlineList = document.querySelector('#online-list');
+const offlineList = document.querySelector('#offline-list');
 const usernameElt = document.querySelector('#username');
 const usernameBtn = document.querySelector('#username-btn');
 const connElt = document.querySelector('#connexion');
 const messageElt = document.querySelector('#message-text');
 const sendMsgBtn = document.querySelector('#send-btn');
 const msgHistory = document.querySelector('#history');
+const onlineCount = document.querySelector('#online-count');
+const offlineCount = document.querySelector('#offline-count');
+const recoList = document.querySelector('#reco-list');
 
 // VARIABLES
 let username;
@@ -44,14 +48,24 @@ function checkUsername (username)
   return true;
 }
 
-function createPersonInList (name) {
-  const personElt = document.createElement('div');
+function displayUser (name, list) {
+  // console.log(list); // DEBUG
+
+  const personElt = document.createElement('li');
   personElt.classList.add('person');
+
   if (name === username) {
     personElt.classList.add('self');
   }
+
+  if (list === recoList) {
+    personElt.addEventListener('click', (evt) => {
+      usernameElt.value = evt.target.textContent;
+      connect();
+    });
+  }
   personElt.textContent = name;
-  peopleList.append(personElt);
+  list.append(personElt);
 }
 
 function connect ()
@@ -89,7 +103,7 @@ function sendMessage ()
 }
 
 function displayMessage (message) {
-  console.log(message);
+  // console.log(message); // DEBUG
 
   const messageElt = document.createElement('div');
   const msgContentElt = document.createElement('div');
@@ -119,12 +133,32 @@ sendMsgBtn.addEventListener('click', sendMessage);
 
 // MAIN
 socket.on('updateUsers', (users) => {
+  console.group('updateUsers');
+
   lclUsers = users;
-  peopleList.innerHTML = "";
+  onlineList.innerHTML = "";
+  offlineList.innerHTML = "";
+  recoList.innerHTML = "";
   
-  for (const id in users) {
-    createPersonInList(users[id].name);
+  console.log(lclUsers); // DEBUG
+
+  for (const id in lclUsers.online) {
+    displayUser(lclUsers.online[id].name, onlineList);
   }
+
+  for (const id in lclUsers.offline) {
+    if (lclUsers.offline[id].name) {  
+      displayUser(lclUsers.offline[id].name, recoList);
+      displayUser(lclUsers.offline[id].name, offlineList);
+    }
+  }
+
+  // console.log(onlineList); // DEBUG
+
+  onlineCount.textContent = Object.entries(lclUsers.online).length;
+  offlineCount.textContent = Object.entries(lclUsers.offline).length;
+
+  console.groupEnd('updateUsers');
 });
 
 socket.on('updateMessages', (messages) => {
@@ -132,7 +166,7 @@ socket.on('updateMessages', (messages) => {
     return false;
   }
   for (let i=lclMessages.length; i<messages.length; i++) {
-    console.log(messages[i]);
+    // console.log(messages[i]); // DEBUG
     displayMessage(messages[i]);
   }
   lclMessages = messages;
