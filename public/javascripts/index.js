@@ -31,11 +31,11 @@ function checkUsername (username)
 {
   const regex = /^[0-9A-Za-z]{6,16}$/;
 
-  for (const id in lclUsers) {
-    if (lclUsers[id].name == username) {
-      throw new Error(`An user already have this username (${username})`);
+  lclUsers.online.forEach( (name) => {
+    if (name == username) {
+      throw new Error(`An user is already connected with this username (${username})`);
     }
-  }
+  });
   
   if (!username.match(regex)) {
     if (username.length < 6 || username.length > 16) {
@@ -134,24 +134,42 @@ sendMsgBtn.addEventListener('click', sendMessage);
 // MAIN
 socket.on('updateUsers', (users) => {
   console.group('updateUsers');
+  
+    // Resetting the corresponding divs
+    onlineList.innerHTML = "";
+    offlineList.innerHTML = "";
+    recoList.innerHTML = "";
 
-  lclUsers = users;
-  onlineList.innerHTML = "";
-  offlineList.innerHTML = "";
-  recoList.innerHTML = "";
+  // Getting user and sorting them in alphabetical order
+  lclUsers = {
+    online: [],
+    offline: []
+  };
+
+  for (const id in users.online) {
+    lclUsers.online.push(users.online[id].name);
+  }
+
+  for (const id in users.offline) {
+    if (users.offline[id].name) {
+      lclUsers.offline.push(users.offline[id].name);
+    }
+  }
+
+  lclUsers.online.sort();
+  lclUsers.offline.sort();
   
   console.log(lclUsers); // DEBUG
 
-  for (const id in lclUsers.online) {
-    displayUser(lclUsers.online[id].name, onlineList);
-  }
+  // Displaying users in corresponding lists
+  lclUsers.online.forEach((username) => {
+    displayUser(username, onlineList);
+  });
 
-  for (const id in lclUsers.offline) {
-    if (lclUsers.offline[id].name) {  
-      displayUser(lclUsers.offline[id].name, recoList);
-      displayUser(lclUsers.offline[id].name, offlineList);
-    }
-  }
+  lclUsers.offline.forEach((username) => {
+      displayUser(username, recoList);
+      displayUser(username, offlineList);
+  });
 
   // console.log(onlineList); // DEBUG
 
