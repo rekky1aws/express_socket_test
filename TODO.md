@@ -25,4 +25,3 @@
   + Disconnection button
     + Prompt confirmation before doing anything
     + Just delete user from users
- + Sort users by name (doable in front depending on what we have to optimize).
