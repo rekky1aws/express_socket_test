@@ -1,9 +1,6 @@
 # TO DO
 ## Front
  + UI
-  + Connection
-    + Name input and button (ok)
-    + Display offlineUsers and if user clicks on of the name, it copie it in the name input
   + Global Layout
     + Chat history in center, overflow on top, scroll at the lowest
     + Send Zone at the bottom of the chat history
