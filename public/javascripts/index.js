@@ -14,6 +14,7 @@ const msgHistory = document.querySelector('#history');
 const onlineCount = document.querySelector('#online-count');
 const offlineCount = document.querySelector('#offline-count');
 const recoList = document.querySelector('#reco-list');
+const pingSound = document.querySelector("#ping-sound");
 
 // VARIABLES
 let username;
@@ -127,6 +128,10 @@ function displayMessage (message) {
   msgHistory.append(messageElt);
 }
 
+async function playPingSound () {
+  pingSound.play();
+}
+
 // EVENT LISTENERS
 usernameBtn.addEventListener('click', connect);
 sendMsgBtn.addEventListener('click', sendMessage);
@@ -180,12 +185,20 @@ socket.on('updateUsers', (users) => {
 });
 
 socket.on('updateMessages', (messages) => {
+  // Do nothing if there's no new message
   if(messages.length === lclMessages.length) {
     return false;
   }
+
+  // Dislaying messages
   for (let i=lclMessages.length; i<messages.length; i++) {
     // console.log(messages[i]); // DEBUG
     displayMessage(messages[i]);
   }
+
   lclMessages = messages;
+
+  // Playing sound
+  playPingSound();
+  
 });
