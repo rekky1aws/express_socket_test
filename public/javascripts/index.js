@@ -199,6 +199,7 @@ socket.on('updateMessages', (messages) => {
   lclMessages = messages;
 
   // Playing sound
+  if (lclMessages[lclMessages.length - 1].user != username)
   playPingSound();
   
 });
