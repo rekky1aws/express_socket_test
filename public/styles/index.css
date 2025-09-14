@@ -59,6 +59,7 @@ body {
   padding: 0.5rem;
   border-radius: 0.5rem;
   max-width: 30vh;
+  white-space: pre-wrap;
 }
 
 .from-self {
