@@ -5,11 +5,8 @@
     + Chat history in center, overflow on top, scroll at the lowest
     + Send Zone at the bottom of the chat history
     + People List appears on the right upon pressing a button
-
- + UX
-  + Keyboard control for sending messages
-    + Enter should not add a new line but send the message instead
-    + Shift + Enter should add a new line
+  + Messages
+    + Keep new lines and spaces.
 
 ## Back
  + Handle disconnection
