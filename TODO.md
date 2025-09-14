@@ -7,8 +7,6 @@
     + People List appears on the right upon pressing a button
 
  + UX
-  + Play a sound when recieving a new message
-    + Check if message is from a different user
   + Keyboard control for sending messages
     + Enter should not add a new line but send the message instead
     + Shift + Enter should add a new line
