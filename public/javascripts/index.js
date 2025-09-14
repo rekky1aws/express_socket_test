@@ -16,10 +16,13 @@ const offlineCount = document.querySelector('#offline-count');
 const recoList = document.querySelector('#reco-list');
 const pingSound = document.querySelector("#ping-sound");
 
+const possibleModifiers = [ 'Control', 'Alt', 'Shift'];
+
 // VARIABLES
 let username;
 let lclUsers = {};
 let lclMessages = [];
+let keyModifiers = [];
 
 // FUNCTIONS
 function chgState ()
@@ -128,6 +131,50 @@ function displayMessage (message) {
   msgHistory.append(messageElt);
 }
 
+function messageHandler (evt) {
+  // Key Modifiers
+  if (possibleModifiers.includes(evt.key)) {
+    keyModHandler(evt);
+    return false;
+  }
+
+  // Not caring for keyup if it isn't a modifier.
+  if (evt.type == 'keyup') {
+    return false;
+  }
+
+  switch(evt.key) {
+    case 'Enter':
+      evt.preventDefault();
+      if (!keyModifiers.includes('Control')) {
+        sendMessage();
+      } else {
+        messageElt.value = messageElt.value + "\n";
+      }
+      break;
+  }
+}
+
+function keyModHandler (evt) {
+  // Adding key on keydown
+  if (evt.type == 'keydown') {
+    const keyModIndex = keyModifiers.includes(evt.key);
+    if (!keyModifiers.includes(evt.key)) {
+      keyModifiers.push(evt.key);
+    } 
+  }
+
+  // Removing key on keyup
+  if (evt.type == 'keyup') {
+    const keyModIndex = keyModifiers.indexOf(evt.key);
+    if (keyModIndex != -1) {
+      keyModifiers.splice(keyModIndex, 1);
+    } 
+  }
+
+  console.log(keyModifiers);
+}
+
 async function playPingSound () {
   pingSound.play();
 }
@@ -135,6 +182,8 @@ async function playPingSound () {
 // EVENT LISTENERS
 usernameBtn.addEventListener('click', connect);
 sendMsgBtn.addEventListener('click', sendMessage);
+messageElt.addEventListener('keydown', messageHandler);
+messageElt.addEventListener('keyup', messageHandler);
 
 // MAIN
 socket.on('updateUsers', (users) => {
