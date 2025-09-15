@@ -18,8 +18,13 @@ body {
 }
 
 #message {
+  position: fixed;
+  bottom: 10px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 0.5rem;
+  width: 100vw;
 }
 
 #message-text {
