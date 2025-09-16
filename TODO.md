@@ -3,7 +3,6 @@
  + UI
   + Global Layout
     + Chat history in center, overflow on top, scroll at the lowest
-    + Send Zone at the bottom of the chat history
     + People List appears on the right upon pressing a button
 
   + Handle server disconnection
