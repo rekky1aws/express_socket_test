@@ -20,6 +20,4 @@
 
 ## Other
  + Documentation
-   + Commandes de lancement
-   + Infos sur les socket
-   + Port
+   + docker
