@@ -16,4 +16,10 @@
     + Move user to the disconnectedUsers list
   + Disconnection button
     + Prompt confirmation before doing anything
-    + Just delete user from users
+    + Just delete user from usersi
+
+## Other
+ + Documentation
+   + Commandes de lancement
+   + Infos sur les socket
+   + Port
