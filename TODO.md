@@ -12,8 +12,10 @@
  + Handle disconnection
   + Timeout
     + Move user to the disconnectedUsers list
+    + Delete users from disconnectedUsers list after 10 minutes
   + Transport Close
     + Move user to the disconnectedUsers list
+    + Delete users from disconnectedUsers list after 10 minutes
   + Disconnection button
     + Prompt confirmation before doing anything
     + Just delete user from usersi
