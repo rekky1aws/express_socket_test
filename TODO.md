@@ -4,6 +4,7 @@
   + Global Layout
     + Chat history in center, overflow on top, scroll at the lowest
     + People List appears on the right upon pressing a button
+    + Better CSS to avoid message behind send zone.
 
   + Handle server disconnection
     + If connection is lost with the server : reset messages and users.
